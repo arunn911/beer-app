@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBeers, startLoading } from "./redux/beerSlice";
 import { Route, Routes } from "react-router-dom";
 import BeerDetail from "./components/BeerDetail";
+import { Tooltip } from "react-bootstrap";
 
 export default function App() {
   const [currentPage, setPage] = useState(1);
@@ -46,7 +47,7 @@ export default function App() {
     setPage(1);
     setPerPage(value);
   };
-  
+
   const renderBeerTable = () => (
     <BeerTable
       beers={beerData}
@@ -64,7 +65,7 @@ export default function App() {
   const renderBeerDetail = () => <BeerDetail />;
 
   return (
-    <div className="App">
+    <div className="App" style={{ position: "relative" }}>
       <section className="beer_app section_padding">
         <h1 className="text-center">Kaay Labs</h1>
         <h6 className="text-center">(Task 1)</h6>
@@ -72,6 +73,22 @@ export default function App() {
           <Route path="/" element={renderBeerTable()} />
           <Route path="/:beerId" element={renderBeerDetail()} />
         </Routes>
+        <footer className="m-2">
+          <p className="text-center m-0">
+            Made by <b>Arun</b>
+          </p>
+          <p className="text-center m-0">
+            <a
+              data-toggle="tooltip"
+              data-placement="top"
+              title="View source code"
+              href="https://github.com/arunn911/beer-dom"
+              target="_blank"
+            >
+              <img className="preview_icon" src="/eye.svg" alt="view source"/>
+            </a>
+          </p>
+        </footer>
       </section>
     </div>
   );

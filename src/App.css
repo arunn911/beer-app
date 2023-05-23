@@ -1,3 +1,6 @@
+.beer_app{
+  padding-bottom: 0;
+}
 .custom-btn-group {
   display: flex;
   justify-content: flex-end;
@@ -65,4 +68,7 @@
 }
 .margin_row{
   margin: 0 10px;
+}
+.preview_icon{
+  height: 30px;
 }
