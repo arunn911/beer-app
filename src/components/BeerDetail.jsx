@@ -65,7 +65,7 @@ export default function BeerDetail(props) {
                 />
               </div>
               <div className="col-sm-9">
-                <div className="row">
+                <div className="row margin_row">
                   <div className="mt-3 col-sm-4">
                     <b>Name :</b> <span>{beerDetail.name}</span>
                   </div>
