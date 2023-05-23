@@ -18,7 +18,8 @@ export default function BeerTable(props) {
     setPage,
     handleDateChange,
     handleDropdownChange,
-    per_page,
+    per_page, 
+    resetFilters,
   } = props;
 
   const navigate = useNavigate();
@@ -32,29 +33,43 @@ export default function BeerTable(props) {
       <div className="beertable_wrapper">
         <Card>
           <div className="brew_filter">
-            <label className="m-0">Data per page</label>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={(e) => {
-                handleDropdownChange(e.target.value);
-              }}
-              value={per_page}
-            >
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-            </Form.Select>
-            <label className="m-0">Brewed before</label>
-            <div className="form-group">
-              <input
-                type="month"
-                className="form-control input-lg"
-                onChange={(event) => {
-                  handleDateChange(event.target.value);
+            <form className="brew_filter">
+              <label className="m-0">Data per page</label>
+              <Form.Select
+                aria-label="Default select example"
+                onChange={(e) => {
+                  handleDropdownChange(e.target.value);
                 }}
-                max={formatDate()}
-              />
-            </div>
+                value={per_page}
+              >
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </Form.Select>
+              <label className="m-0">Brewed before</label>
+              <div className="form-group">
+                <input
+                  type="month"
+                  className="form-control input-lg month-selector"
+                  onChange={(event) => {
+                    handleDateChange("before", event.target.value);
+                  }}
+                  max={formatDate()}
+                />
+              </div>
+              <label className="m-0">Brewed after</label>
+              <div className="form-group">
+                <input
+                  type="month"
+                  className="form-control input-lg month-selector"
+                  onChange={(event) => {
+                    handleDateChange("after", event.target.value);
+                  }}
+                  max={formatDate()}
+                />
+              </div>
+              <a href="#" onClick={() => resetFilters()}> Reset Filters </a>
+            </form>
           </div>
           {loading ? (
             <div className="spinner_wrapper text-center mt-5 mb-5">

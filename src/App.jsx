@@ -5,12 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getBeers, startLoading } from "./redux/beerSlice";
 import { Route, Routes } from "react-router-dom";
 import BeerDetail from "./components/BeerDetail";
-import { Tooltip } from "react-bootstrap";
 
 export default function App() {
   const [currentPage, setPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
-  const [month, setMonth] = useState(null);
+  const [before, setBefore] = useState(null);
+  const [after, setAfter] = useState(null);
   const { beers } = useSelector((state) => state);
   const { data: beerData, loading } = beers;
   const disptach = useDispatch();
@@ -22,23 +22,30 @@ export default function App() {
       debounceTimer = setTimeout(() => callback.apply(this, args), delay);
     };
   };
-  const fetchBeers = (page, month, per_page) => {
+  const fetchBeers = (page, before, after, per_page) => {
     disptach(startLoading("all"));
     disptach(
-      month
-        ? getBeers(`?per_page=${per_page}&page=${page}&brewed_before=${month}`)
+      after && before
+        ? getBeers(
+            `?per_page=${per_page}&page=${page}&brewed_before=${before}&brewed_after=${after}`
+          )
+        : before
+        ? getBeers(`?per_page=${per_page}&page=${page}&brewed_before=${before}`)
+        : after
+        ? getBeers(`?per_page=${per_page}&page=${page}&brewed_after=${after}`)
         : getBeers(`?per_page=${per_page}&page=${page}`)
     );
   };
 
   useEffect(() => {
-    fetchBeers(currentPage, month, perPage);
-  }, [currentPage, month, perPage]);
+    fetchBeers(currentPage, before, after, perPage);
+  }, [currentPage, before, perPage, after]);
 
-  const handleDateChange = debounce((value) => {
+  const handleDateChange = debounce((type, value) => {
     disptach(startLoading("all"));
     const formatedDate = value.split("-").reverse().join("-");
-    setMonth(formatedDate);
+    if (type === "after") setAfter(formatedDate);
+    else setBefore(formatedDate);
     setPage(1);
   }, 1000);
 
@@ -48,17 +55,26 @@ export default function App() {
     setPerPage(value);
   };
 
+  const resetFilters = () => {
+    setAfter(null);
+    setBefore(null);
+    setPerPage(10);
+    const monthPickers = document.querySelectorAll(".month-selector");
+    for (let picker = 0; picker < monthPickers.length; picker++) {
+      monthPickers[picker].value = "";
+    }
+  };
+
   const renderBeerTable = () => (
     <BeerTable
       beers={beerData}
       loading={loading}
       currentPage={currentPage}
       setPage={setPage}
-      month={month}
       handleDateChange={handleDateChange}
-      fetchBeers={fetchBeers}
       handleDropdownChange={handleDropdownChange}
       per_page={perPage}
+      resetFilters={resetFilters}
     />
   );
 
@@ -85,7 +101,7 @@ export default function App() {
               href="https://github.com/arunn911/beer-dom"
               target="_blank"
             >
-              <img className="preview_icon" src="/eye.svg" alt="view source"/>
+              <img className="preview_icon" src="/eye.svg" alt="view source" />
             </a>
           </p>
         </footer>
