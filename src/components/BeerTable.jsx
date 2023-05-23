@@ -17,8 +17,6 @@ export default function BeerTable(props) {
     currentPage,
     setPage,
     handleDateChange,
-    fetchBeers,
-    month,
     handleDropdownChange,
     per_page,
   } = props;
@@ -141,7 +139,6 @@ export default function BeerTable(props) {
                 disabled={currentPage === 1}
                 onClick={() => {
                   setPage(currentPage - 1);
-                  fetchBeers(currentPage - 1, month, per_page);
                 }}
               >
                 Previous
@@ -153,7 +150,6 @@ export default function BeerTable(props) {
                 disabled={beers.length < 10}
                 onClick={() => {
                   setPage(currentPage + 1);
-                  fetchBeers(currentPage + 1, month, per_page);
                 }}
               >
                 Next

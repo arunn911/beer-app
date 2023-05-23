@@ -21,11 +21,6 @@ export default function App() {
       debounceTimer = setTimeout(() => callback.apply(this, args), delay);
     };
   };
-
-  useEffect(() => {
-    fetchBeers(currentPage, month, perPage);
-  }, []);
-
   const fetchBeers = (page, month, per_page) => {
     disptach(startLoading("all"));
     disptach(
@@ -34,20 +29,24 @@ export default function App() {
         : getBeers(`?per_page=${per_page}&page=${page}`)
     );
   };
+
+  useEffect(() => {
+    fetchBeers(currentPage, month, perPage);
+  }, [currentPage, month, perPage]);
+
   const handleDateChange = debounce((value) => {
     disptach(startLoading("all"));
     const formatedDate = value.split("-").reverse().join("-");
     setMonth(formatedDate);
     setPage(1);
-    fetchBeers(1, formatedDate);
   }, 1000);
 
   const handleDropdownChange = (value) => {
     disptach(startLoading("all"));
     setPage(1);
     setPerPage(value);
-    fetchBeers(1, month, value);
   };
+  
   const renderBeerTable = () => (
     <BeerTable
       beers={beerData}
