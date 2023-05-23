@@ -1,38 +1,65 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.custom-btn-group {
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+.custom-btn-group .btn {
+  background: var(--primary-color);
+  border: 1px solid var(--primary-font);
+}
+.custom-btn-group .btn:active {
+  border: 1px solid var(--primary-font);
+  background: var(--primary-color);
+  font-weight: bold;
+}
+.brew_filter{
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  gap: 10px;
+  align-items: center;
+}
+.brew_filter .form-select{
+  width: auto;
+}
+.no-result-image{
+  height: 100px;
+}
+.beer_image_container{
+  border-radius: 5px;
+}
+.beer_image{
+  max-height: 60vh;
+  padding: 1rem;
+  max-width: 100%;
+}
+.back_btn{
+  padding: 5px;
+  border: none;
+  background: none;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  transition: all 1s ease-in-out;
 }
 
-.App-link {
-  color: #61dafb;
+.back_btn_dark{
+  margin-top: 5px;
+  border: 1px solid black;
+  font-weight: 500;
+  padding: 2px 5px 2px 0;
+  background: none;
+  transition: background 300ms ease-in-out;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.back_btn_dark:hover{
+  background: rgba(0, 0, 0, 0.157);
+}
+.back_btn img, .back_btn_dark img{
+  height: 30px;
+}
+.back_btn:active{
+  background: radial-gradient(#cbcbcbbf, transparent);
+}
+.beer_table_wrapper{
+  padding: 10px;
 }
