@@ -18,7 +18,7 @@ export default function BeerTable(props) {
     setPage,
     handleDateChange,
     handleDropdownChange,
-    per_page, 
+    per_page,
     resetFilters,
   } = props;
 
@@ -68,7 +68,10 @@ export default function BeerTable(props) {
                   max={formatDate()}
                 />
               </div>
-              <a href="#" onClick={() => resetFilters()}> Reset Filters </a>
+              <a href="#" onClick={() => resetFilters()}>
+                {" "}
+                Reset Filters{" "}
+              </a>
             </form>
           </div>
           {loading ? (
@@ -78,73 +81,77 @@ export default function BeerTable(props) {
             </div>
           ) : beers.length === 0 ? (
             <div className="beer_table_wrapper">
-              <Table bordered hover>
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>First Brewed</th>
-                    <th>Tagline</th>
-                    <th>Contributed By</th>
-                    <th>More Details</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td colSpan={6}>
-                      <div className="no_result text-center">
-                        <img
-                          className="no-result-image"
-                          src="/no-result.png"
-                          alt="no-results"
-                        />
-                        <p>
-                          <strong>No results found </strong>
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
+              <div className="table-responsive">
+                <Table bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Name</th>
+                      <th>First Brewed</th>
+                      <th>Tagline</th>
+                      <th>Contributed By</th>
+                      <th>More Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colSpan={6}>
+                        <div className="no_result text-center">
+                          <img
+                            className="no-result-image"
+                            src="/no-result.png"
+                            alt="no-results"
+                          />
+                          <p>
+                            <strong>No results found </strong>
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
             </div>
           ) : (
             <div className="beer_table_wrapper">
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>First Brewed</th>
-                    <th>Tagline</th>
-                    <th>Contributed By</th>
-                    <th>More Details</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {beers.map((beer, index) => {
-                    return (
-                      <tr key={beer.id}>
-                        <td>{beer.id}</td>
-                        <td>{beer.name}</td>
-                        <td>{beer.first_brewed}</td>
-                        <td>{beer.tagline}</td>
-                        <td>{beer.contributed_by}</td>
-                        <td>
-                          <Button
-                            variant="plain"
-                            onClick={() => {
-                              dispatch(startLoading("single"));
-                              navigate(`/${beer.id}`);
-                            }}
-                          >
-                            <span className="text-primary bg-none">View</span>
-                          </Button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
+              <div className="table-responsive">
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Name</th>
+                      <th>First Brewed</th>
+                      <th>Tagline</th>
+                      <th>Contributed By</th>
+                      <th>More Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {beers.map((beer, index) => {
+                      return (
+                        <tr key={beer.id}>
+                          <td>{beer.id}</td>
+                          <td>{beer.name}</td>
+                          <td>{beer.first_brewed}</td>
+                          <td>{beer.tagline}</td>
+                          <td>{beer.contributed_by}</td>
+                          <td>
+                            <Button
+                              variant="plain"
+                              onClick={() => {
+                                dispatch(startLoading("single"));
+                                navigate(`/${beer.id}`);
+                              }}
+                            >
+                              <span className="text-primary bg-none">View</span>
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </div>
             </div>
           )}
 

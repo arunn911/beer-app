@@ -72,3 +72,10 @@
 .preview_icon{
   height: 30px;
 }
+
+@media only screen and (max-width:790px){
+  .brew_filter{
+    flex-direction: column;
+    padding: 10px 0;
+  }
+}
